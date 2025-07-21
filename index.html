@@ -139,22 +139,27 @@
     </div>
     <script>
         const backendUrl = 'https://test-for-render-0uo3.onrender.com';
-        async function fetchCountries() {
-            try {
-                const resp = await fetch(`${backendUrl}/api/countries`);
-                if (!resp.ok) throw new Error('Network response was not ok');
-                const data = await resp.json();
-                const select = document.getElementById('countrySelect');
-                select.innerHTML = ''; // Clear previous options
-                data.countries.forEach(country => {
-                    const option = document.createElement('option');
-                    option.value = country;
-                    option.textContent = country;
-                    select.appendChild(option);
-                });
-            } catch (err) {
-                alert('Failed to load countries: ' + err.message);
-            }
+        const defaultCountries = [
+            'India',
+            'United States',
+            'Brazil',
+            'Russia',
+            'United Kingdom',
+            'France',
+            'Italy',
+            'Germany',
+            'Spain',
+            'Turkey'
+        ];
+        function populateDefaultCountries() {
+            const select = document.getElementById('countrySelect');
+            select.innerHTML = '';
+            defaultCountries.forEach(country => {
+                const option = document.createElement('option');
+                option.value = country;
+                option.textContent = country;
+                select.appendChild(option);
+            });
         }
         document.getElementById('showCountry').addEventListener('click', async () => {
             const country = document.getElementById('countrySelect').value;
@@ -188,7 +193,7 @@
             };
             Plotly.newPlot('plot', traces, layout, {responsive: true});
         }
-        fetchCountries();
+        populateDefaultCountries();
     </script>
 </body>
 </html> 
